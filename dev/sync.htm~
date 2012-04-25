@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<script src="http://papio/socket.io/socket.io.js"></script>
+<script src="http://papio/ntp/ntp.js"></script>
+<script src="http://papio/ntp/at.js"></script>
+<script>
+ntp.sync(function(){
+  alert(
+    'Your clock differs from the server\'s'
+  + ' by '+(ntp.offset()/1000)+' seconds.'
+  );
+  at.at(function(){
+    alert('Happy New Year!');
+  },ntp.clientDate(1325376000000));
+});
+</script>
+</head>
+<body>
+</body>
+</html>
