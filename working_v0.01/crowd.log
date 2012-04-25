@@ -1,0 +1,83 @@
+crowd daemon successfully started!
+Request for / received
+Handling request for /
+index request starting...
+Request for / received
+Handling request for /
+index request starting...
+Request for /resources/js/jquery.jplayer.js received
+resource request starting...
+.js
+Handling non-audio request.
+Request for /favicon.ico received
+404 not found.
+Request for /resources/audio/song.mp3 received
+resource request starting...
+.mp3
+Handling audio request.
+Request for / received
+Handling request for /
+index request starting...
+Request for /resources/js/jquery.jplayer.js received
+resource request starting...
+.js
+Handling non-audio request.
+Request for /resources/audio/song.mp3 received
+resource request starting...
+.mp3
+Handling audio request.
+Request for / received
+Handling request for /
+index request starting...
+Request for /resources/js/jquery.jplayer.js received
+resource request starting...
+.js
+Handling non-audio request.
+Request for /favicon.ico received
+404 not found.
+Request for /resources/audio/song.mp3 received
+resource request starting...
+.mp3
+Handling audio request.
+Request for / received
+Handling request for /
+index request starting...
+Request for /resources/js/jquery.jplayer.js received
+resource request starting...
+.js
+Handling non-audio request.
+Request for /resources/audio/song.mp3 received
+resource request starting...
+.mp3
+Handling audio request.
+Request for / received
+Handling request for /
+index request starting...
+Request for / received
+Handling request for /
+index request starting...
+This type of response MUST NOT have a body. Ignoring write() calls.
+Request for /robots.txt received
+404 not found.
+Request for / received
+Handling request for /
+index request starting...
+Request for /resources/js/jquery.jplayer.js received
+resource request starting...
+.js
+Handling non-audio request.
+Request for /resources/audio/song.mp3 received
+resource request starting...
+.mp3
+Handling audio request.
+Request for / received
+Handling request for /
+index request starting...
+Request for /resources/js/jquery.jplayer.js received
+resource request starting...
+.js
+Handling non-audio request.
+Request for /resources/audio/song.mp3 received
+resource request starting...
+.mp3
+Handling audio request.

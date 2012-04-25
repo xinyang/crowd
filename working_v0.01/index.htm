@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Crowdspeaker</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+<script type="text/javascript" src="/resources/js/jquery.jplayer.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+   $("#jquery_jplayer_1").jPlayer({
+      ready: function () {
+        $(this).jPlayer("setMedia", {
+           mp3: "/resources/audio/song.mp3",
+        });
+      },
+      swfPath: "/js",
+      supplied: "mp3",
+      cssSelectorAncestor: "",
+      size: {
+          width: "200px",
+          height: "50px"
+      },
+      backgroundColor: "#000000"
+   }).jPlayer("play");
+
+console.log($("#jquery_jplayer_1"));
+
+$(playButton).click(function() {
+   var start = $(startTime)[0].value;
+   console.log(start);
+   $("#jquery_jplayer_1").jPlayer("playHead", start);
+   console.log($("#jquery_jplayer_1").jPlayer("currentTime"));
+   $("#jquery_jplayer_1").jPlayer("play", start);
+   console.log($("#jquery_jplayer_1").jPlayer("currentTime"));   
+});
+
+$(pauseButton).click(function() {
+   $("#jquery_jplayer_1").jPlayer("pause");
+});
+
+$(stopButton).click(function() {
+   $("#jquery_jplayer_1").jPlayer("stop");
+});
+
+});
+</script>
+</head>
+<body>
+  <div id="jquery_jplayer_1" class="jp-jplayer"></div>
+  <input id="playButton" type="button" value="Click to play!" />
+  <input id="startTime" name="Start Time" type="text" value="0" />
+  <input id="pauseButton" type="button" value="Click to pause!" />
+  <input id="stopButton" type="button" value="Click to stop!" />
+</body>
+
+</html>
