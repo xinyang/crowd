@@ -1,12 +1,14 @@
+var sock = require('socket.io');
 
-var io = require('socket.io').listen(3333);
+function attachSocket(app) {
 
-io.sockets.on(connection, function(socket) {
-    console.log("user connected to port 3333");
+    var io = sock.listen(app);
 
+    io.sockets.on('connection', function(socket) {
+	
     socket.on('greetings', function(msg) {
 	console.log("user said \"", msg, "\"");
-	socket.emit('response');
+	socket.broadcast.emit('response');
     });
 
     socket.on('disconnect', function() {
@@ -15,6 +17,7 @@ io.sockets.on(connection, function(socket) {
 
 });
 
+
 }
 
-exports.sock = sock;
+exports.attachSocket = attachSocket;

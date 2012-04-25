@@ -1,8 +1,9 @@
 var http = require('http');
 var url = require('url');
 var socket = require('socket.io');
+var attachSocket = require('./socket').attachSocket;
 
-function start(route, handle) {
+function start(route, handle, PORT) {
 
     function onRequest(request, response) {
 	var pathname = url.parse(request.url).pathname;
@@ -10,29 +11,13 @@ function start(route, handle) {
 	route(request, response, handle, pathname);
     }
 
-    var app = http.createServer(onRequest);
-    var io = socket.listen(app);
-    app.listen(8000);
-
+    var app = http.createServer(onRequest).listen(PORT);
     console.log("Server started.");
+    console.log("user " + "" + " connected to port " + PORT);
 
-    io.sockets.on('connection', function(sock) {
-	console.log("user connected to port 8000");
-
-	sock.on('greetings', function(msg) {
-	    console.log("user said \"", msg, "\"");
-	    sock.emit('response');
-	});
-	
-	sock.on('disconnect', function() {
-	    console.log("user disconnected");
-	});
-
-    });
+    attachSocket(app);
+    console.log("Socket.io attached.");
 
 }
-
-
-
 
 exports.start = start;
