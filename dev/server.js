@@ -9,7 +9,7 @@ function start(route, handle) {
 	route(request, response, handle, pathname);
     }
 
-    http.createServer(onRequest).listen(80);
+    http.createServer(onRequest).listen(8000);
     console.log("Server started.");
 }
 
