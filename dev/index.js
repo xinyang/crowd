@@ -7,6 +7,6 @@ handle['/'] = requestHandler.index;
 handle['/index'] = requestHandler.index;
 handle['/sync'] = requestHandler.sync;
 
-console.log(router);
-console.log(server);
+//console.log(router);
+//console.log(server);
 server.start(router.route, handle);

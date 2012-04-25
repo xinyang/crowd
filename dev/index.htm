@@ -2,11 +2,13 @@
 <html>
 <head>
 <title>Crowdspeaker</title>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
-<script type="text/javascript" src="/resources/js/jquery.jplayer.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
+<script src="http://69.55.55.159:8000/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+<script src="/resources/js/jquery.jplayer.js"></script>
+<script>
 
+var socket = io.connect("http://69.55.55.159:8000/");
+$(document).ready(function(){
    $("#jquery_jplayer_1").jPlayer({
       ready: function () {
         $(this).jPlayer("setMedia", {
@@ -42,15 +44,36 @@ $(stopButton).click(function() {
    $("#jquery_jplayer_1").jPlayer("stop");
 });
 
+$(sayHello).click(function() {
+   socket.emit("greetings", {msg:"hello!"});
 });
+
+socket.on("response", function() {
+   document.getElementById("box").innerHTML = "hello!";
+});
+
+
+});
+
+// var player = document.getElementById("player");
+
+
 </script>
 </head>
 <body>
+<!--
+  <audio id="player" controls="controls">
+    <source src="resources/audio/song.mp3" type="audio/mpeg">
+  </audio>
+-->
   <div id="jquery_jplayer_1" class="jp-jplayer"></div>
   <input id="playButton" type="button" value="Click to play!" />
   <input id="startTime" name="Start Time" type="text" value="0" />
   <input id="pauseButton" type="button" value="Click to pause!" />
   <input id="stopButton" type="button" value="Click to stop!" />
+  <input id="sayHello" type="button" value="Click to say hello to server!" />
+
+  <div id="box"></div>
 </body>
 
 </html>
