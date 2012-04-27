@@ -4,7 +4,8 @@ var fs = require('fs');
 function index(request, response) {
     console.log('index request starting...');
     fs.readFile('./index.htm' , function(error, content) {
-        if (error) {
+        console.log("reading ./index.htm ...");
+	if (error) {
 	    console.log("500 server error");
 	    _500Handler(request, response, error);
         }
@@ -15,6 +16,12 @@ function index(request, response) {
         }
     });
 
+/*
+    response.writeHead(200, { 'Content-Type': 'text/html' });
+    response.write("whee", 'utf-8');
+    response.end()
+
+*/
 }
 
 function sync(request, response) {

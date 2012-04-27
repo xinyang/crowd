@@ -1,64 +1,134 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 <title>Crowdspeaker</title>
 <script src="http://69.55.55.159:8000/socket.io/socket.io.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
 <script src="/resources/js/jquery.jplayer.js"></script>
+<!-- <script src="/resources/js/soundmanager2-jsmin.js"></script> -->
 <script>
 
+//soundManager.url = "/resources/swf/";
+   // directory where SM2 .SWFs live
+
 var socket = io.connect('http://69.55.55.159:8000');
+
+var timeBeforeSignal, timeAterSignal, roundTripTime;
+
+function execWithUpdatedRoundTripTime(func) {
+   timeBeforeSignal = new Date().getTime();
+   socket.emit('sync-from-client');
+   socket.on('sync-from-server', function() {
+      timeAfterSignal = new Date().getTime();
+      roundTripTime = timeAfterSignal - timeBeforeSignal;
+      func(roundTripTime);
+   });
+}
+
 $(document).ready(function(){
+
+   
+
+/*
+ * Note that SoundManager will determine and append the appropriate .SWF file to the URL,
+ * eg. /path/to/sm2-flash-files/soundmanager2.swf automatically.
+ *
+ * Bonus: Read up on HTML5 audio support, if you're feeling adventurous.
+ * iPad/iPhone and devices without flash installed will always attempt to use it.
+ *
+ * Also, See the flashblock demo when you want to start getting fancy.
+*/
+
+// disable debug mode after development/testing..
+// soundManager.debugMode = false;
+
+// The basics: onready() callback
+
+/*
+
+soundManager.onready(function(){
+
+  // SM2 has loaded - now you can create and play sounds!
+
+  var mySound = soundManager.createSound({
+    id: 'songid',
+    url: '/resources/audio/song.mp3'
+    // onload: myOnloadHandler,
+    // other options here..
+  });
+
+  
+
+
+});
+
+// Optional: ontimeout() callback for handling start-up failure
+
+soundManager.ontimeout(function(){
+
+  // Hrmm, SM2 could not start. Flash blocker involved? Show an error, etc.?
+  console.log(soundManager);
+
+});
+
+*/
+
+
+
    $("#jquery_jplayer_1").jPlayer({
       ready: function () {
         $(this).jPlayer("setMedia", {
            mp3: "/resources/audio/song.mp3",
         });
       },
-      swfPath: "/js",
+      swfPath: "/resources/js",
       supplied: "mp3",
       cssSelectorAncestor: "",
       size: {
-          width: "200px",
-          height: "50px"
+         width: "200px",
+         height: "50px"
       },
       backgroundColor: "#000000"
    }).jPlayer("play");
 
-console.log($("#jquery_jplayer_1"));
+   console.log($("#jquery_jplayer_1"));
+    
+   $('#playButton').click(function() {
+      play();
+   });
 
-$(playButton).click(function() {
-   play();
+   function play(roundTripTime){
+      var start = $('#startTime')[0].value;
+      console.log(start);
+      console.log("round trip time is " + roundTripTime);
+      $("#jquery_jplayer_1").jPlayer("playHead", start);
+      console.log($("#jquery_jplayer_1").jPlayer("currentTime"));
+      $("#jquery_jplayer_1").jPlayer("play", start);
+      console.log($("#jquery_jplayer_1").jPlayer("currentTime"));   
+   }
+
+   $('#pauseButton').click(function() {
+      $("#jquery_jplayer_1").jPlayer("pause");
+   });
+
+   $('#stopButton').click(function() {
+      $("#jquery_jplayer_1").jPlayer("stop");
+   });
+
+   $('#sayHello').click(function() {
+      socket.emit("greetings", {msg:"hello!"});
+   });
+
+   socket.on("response", function() {
+      document.getElementById("box").innerHTML = "hello!";
+      execWithUpdatedRoundTripTime(play);
+   });
+
+
+
 });
 
-function play(){
-   var start = $(startTime)[0].value;
-   console.log(start);
-   $("#jquery_jplayer_1").jPlayer("playHead", start);
-   console.log($("#jquery_jplayer_1").jPlayer("currentTime"));
-   $("#jquery_jplayer_1").jPlayer("play", start);
-   console.log($("#jquery_jplayer_1").jPlayer("currentTime"));   
-}
-
-$(pauseButton).click(function() {
-   $("#jquery_jplayer_1").jPlayer("pause");
-});
-
-$(stopButton).click(function() {
-   $("#jquery_jplayer_1").jPlayer("stop");
-});
-
-$(sayHello).click(function() {
-   socket.emit("greetings", {msg:"hello!"});
-});
-
-socket.on("response", function() {
-   document.getElementById("box").innerHTML = "hello!";
-   play();
-});
-
-
-});
 
 // var player = document.getElementById("player");
 

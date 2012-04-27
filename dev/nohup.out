@@ -1,0 +1,44 @@
+Server started.
+user  connected to port 8000
+info: socket.io started
+Socket.io attached.
+Request for / received
+Handling request for /
+index request starting...
+debug: served static content /socket.io.js
+Request for /resources/js/jquery.jplayer.js received
+resource request starting...
+.js
+Handling non-audio request.
+debug: client authorized
+info: handshake authorized 688126708412984358
+Request for /favicon.ico received
+404 not found.
+debug: setting request GET /socket.io/1/websocket/688126708412984358
+debug: set heartbeat interval for client 688126708412984358
+debug: client authorized for 
+debug: websocket writing 1::
+Request for /resources/audio/song.mp3 received
+resource request starting...
+.mp3
+Handling audio request.
+Request for / received
+Handling request for /
+index request starting...
+debug: served static content /socket.io.js
+Request for /resources/js/jquery.jplayer.js received
+resource request starting...
+.js
+Handling non-audio request.
+Request for /resources/audio/song.mp3 received
+resource request starting...
+.mp3
+Handling audio request.
+
+/root/crowd/dev/requestHandler.js:103
+    var parts = range.replace(/bytes=/, "").split("-"); 
+                      ^
+TypeError: Cannot call method 'replace' of undefined
+    at audioResourceHandler (/root/crowd/dev/requestHandler.js:103:23)
+    at /root/crowd/dev/requestHandler.js:76:3
+    at Object.oncomplete (path.js:412:19)

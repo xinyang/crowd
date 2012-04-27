@@ -98,14 +98,23 @@ function audioResourceHandler(request, response, filePath, contentType) {
 	return;
     }
     
-    var range = request.headers.range; 
-    var total = content.length; 
-    var parts = range.replace(/bytes=/, "").split("-"); 
-    var partialstart = parts[0]; 
-    var partialend = parts[1]; 
-    var start = parseInt(partialstart, 10); 
-    var end = partialend ? parseInt(partialend, 10) : total-1; 
-    var chunksize = (end-start)+1; 
+    console.log("contentType: " + contentType);
+    var range = request.headers.range;
+    console.log("range: " + range);
+    var total = content.length;
+    console.log("total: " + total)
+    var start = 0;
+    var end = total - 1;
+    var chunksize = (end-start) + 1;
+    if (range !== undefined) 
+    {
+	var parts = range.replace("bytes=", "").split("-"); 
+	var partialstart = parts[0]; 
+	var partialend = parts[1]; 
+	start = parseInt(partialstart, 10); 
+	end = partialend ? parseInt(partialend, 10) : total-1; 
+	chunksize = (end-start)+1; 
+    }
     response.writeHead(206, { "Content-Range": "bytes " + start + "-" 
 			      + end + "/" + total, "Accept-Ranges": "bytes", "Content-Length": 
 			      chunksize, "Content-Type": contentType }); 
